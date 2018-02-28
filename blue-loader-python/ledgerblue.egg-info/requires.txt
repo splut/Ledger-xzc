@@ -1,0 +1,9 @@
+hidapi>=0.7.99
+protobuf>=2.6.1
+pycrypto>=2.6.1
+future
+ecpy>=0.8.1
+pillow>=3.4.0
+
+[smartcard]
+python-pyscard>=1.6.12-4build1
