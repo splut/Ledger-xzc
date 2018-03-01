@@ -19,8 +19,8 @@
 ### OPTIONAL - Building App from Source (Linux Only - Skip to 'Binary' section for direct install)
 
  #### dependancies:
-   sudo apt-get update
-     sudo apt-get install libc6-dev-i386 libudev-dev libusb-1.0-0-dev python-dev
+    sudo apt-get update
+    sudo apt-get install libc6-dev-i386 libudev-dev libusb-1.0-0-dev python-dev
 
   #### link the environment variable BOLOS_ENV to current directory:
     export BOLOS_ENV=~/Ledger-xzc
@@ -46,7 +46,7 @@
 ### Binary
 
 #### Application Verification (Optional but recommended)
- Firstly verify that entries in 'verification' folder match what's on https://zcoin.io/get-zcoin/
+ Firstly verify that entries in 'verification' folder match what's on https://zcoin.io/get-zcoin/ (To be added)
 ##### verify application hash:
     python -m ledgerblue.hashApp --hex bin/app.hex
 
