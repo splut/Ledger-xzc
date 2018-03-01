@@ -20,6 +20,7 @@
 DEFAULT_ALIGNMENT = 1024
 
 import argparse
+import os
 
 def get_argparser():
 	parser = argparse.ArgumentParser(description="Load an app onto the device from a hex file.")
@@ -135,7 +136,7 @@ if __name__ == '__main__':
 
 	signature = None
 	if not args.signature is None:
-		signature = bytearray.fromhex(args.signature)
+		signature = bytearray.fromhex(open(os.getcwd() + "/" + args.signature,"r").read().splitlines()[0])
 
 	#prepend app's data with the icon content (could also add other various install parameters)
 	printer = IntelHexPrinter(parser)

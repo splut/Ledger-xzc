@@ -18,6 +18,7 @@
 """
 
 import argparse
+import os
 
 def get_argparser():
 	parser = argparse.ArgumentParser(description="Enroll a Custom CA public key onto the device.")
