@@ -25,7 +25,7 @@ def get_argparser():
 	parser.add_argument("--apdu", help="Display APDU log", action='store_true')
 	parser.add_argument("--rootPrivateKey", help="""The Signer private key used to establish a Secure Channel (otherwise
 a random one will be generated)""")
-	parser.add_argument("--public", help="The Custom CA public key to be enrolled (hex encoded)")
+	parser.add_argument("--public", help="The Custom CA public key file to be enrolled (hex encoded)")
 	parser.add_argument("--name", help="""The name to assign to the Custom CA (this will be displayed on screen upon
 auth requests)""")
 	return parser
@@ -56,9 +56,8 @@ if __name__ == '__main__':
 		raise Exception("Missing public key")
 	if args.name is None:
 		raise Exception("Missing certificate name")
-
-	public = bytearray.fromhex(args.public)
-
+	
+	public = bytearray.fromhex(open(os.getcwd() + "/" + args.public,"r").read().splitlines()[0])
 
 	dongle = getDongle(args.apdu)
 

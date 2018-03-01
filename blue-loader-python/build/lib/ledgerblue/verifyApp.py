@@ -18,13 +18,14 @@
 """
 
 import argparse
+import os
 
 def get_argparser():
 	parser = argparse.ArgumentParser("""Verify that the provided signature is a valid signature of the provided
 application.""")
 	parser.add_argument("--hex", help="The hex file of the signed application")
-	parser.add_argument("--key", help="The Custom CA public key with which to verify the signature (hex encoded)")
-	parser.add_argument("--signature", help="The signature to be verified (hex encoded)")
+	parser.add_argument("--key", help="The Custom CA public key file with which to verify the signature (hex encoded)")
+	parser.add_argument("--signature", help="The signature file to be verified (hex encoded)")
 	return parser
 
 def auto_int(x):
@@ -42,9 +43,9 @@ if __name__ == '__main__':
 	if args.hex == None:
 		raise Exception("Missing hex filename to verify")
 	if args.key == None:
-		raise Exception("Missing public key")
+		raise Exception("Missing public key filename")
 	if args.signature == None:
-		raise Exception("Missing signature")
+		raise Exception("Missing signature filename")
 
 	# parse
 	parser = IntelHexParser(args.hex)
@@ -56,8 +57,11 @@ if __name__ == '__main__':
 		m.update(a.data)
 	dataToSign = m.digest()
 
-	publicKey = PublicKey(bytes(bytearray.fromhex(args.key)), raw=True)
-	signature = publicKey.ecdsa_deserialize(bytes(bytearray.fromhex(args.signature)))
+	rawKey = bytearray.fromhex(open(os.getcwd() + "/" + args.key,"r").read().splitlines()[0])
+	rawSig = bytearray.fromhex(open(os.getcwd() + "/" + args.signature,"r").read().splitlines()[0])
+
+	publicKey = PublicKey(bytes(rawKey), raw=True)
+	signature = publicKey.ecdsa_deserialize(bytes(rawSig))
 	if not publicKey.ecdsa_verify(bytes(dataToSign), signature, raw=True):
 		raise Exception("Signature not verified")
 

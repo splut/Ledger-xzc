@@ -58,7 +58,7 @@ if __name__ == '__main__':
 	dataToSign = m.digest()
 
 	rawKey = bytearray.fromhex(open(os.getcwd() + "/" + args.key,"r").read().splitlines()[0])
-    rawSig = bytearray.fromhex(open(os.getcwd() + "/" + args.signature,"r").read().splitlines()[0])
+	rawSig = bytearray.fromhex(open(os.getcwd() + "/" + args.signature,"r").read().splitlines()[0])
 
 	publicKey = PublicKey(bytes(rawKey), raw=True)
 	signature = publicKey.ecdsa_deserialize(bytes(rawSig))
